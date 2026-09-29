@@ -1,0 +1,2646 @@
+/* 
+   TOY HAVEN COLOUR THEME
+   Navy      #243B6B  -> main headings, navigation and strong UI elements
+   Sky Blue  #5BC0EB  -> links, secondary buttons and highlights
+   Yellow    #FDE74C  -> playful accents and calls-to-action
+   Pink      #F45B69  -> promotional accents and important actions
+   Background#F7F9FC  -> clean page background
+*/
+/*
+=========================================================
+TOY HAVEN - CSS / VIVA GUIDE
+=========================================================
+This stylesheet controls the visual design.
+
+WHY THESE RULES EXIST:
+- CSS variables keep the colour palette consistent.
+- Grid is used for product and category collections.
+- Flexbox is used for navigation, buttons and small layouts.
+- Border radius and shadows create the redesigned visual
+  style without changing the assignment concept.
+- Hover transitions provide interaction feedback.
+- Media queries make the pages responsive on mobile,
+  tablet and desktop.
+
+The colour palette and product presentation are intentionally
+different from the previous Toy Haven design.
+=========================================================
+*/
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+/*
+=========================================================
+TOY HAVEN - MAIN STYLESHEET
+=========================================================
+
+VIVA NAVIGATION
+---------------------------------------------------------
+CTRL + F these headings in VS Code:
+
+1. COLOUR PALETTE
+2. GLOBAL / RESET
+3. HEADER + NAVIGATION
+4. BUTTONS
+5. HERO
+6. PRODUCT CARDS
+7. PRODUCTS PAGE CONTROLS
+8. CART
+9. CHECKOUT / FORMS
+10. WISHLIST
+11. SUPPORT / FAQ
+12. FOOTER
+13. MODAL
+14. ANIMATIONS
+15. HOME PAGE
+16. RESPONSIVE TABLET
+17. RESPONSIVE MOBILE
+
+COLOUR PALETTE
+---------------------------------------------------------
+Primary    #E8A7B8 = Coral Red
+Secondary  #F4D6A0 = Sunny Yellow
+Accent     #A9D8C8 = Green
+Background #FBF6F1 = Warm Cream
+Text       #4B4652 = Dark Gray
+=========================================================
+*/
+
+/* =====================================================
+   1. COLOUR PALETTE
+   Change colours HERE if you want to redesign the site.
+   ===================================================== */
+:root {
+  /* TOY HAVEN - WHITE + BLUE THEME */
+  --primary: #2563A6;        /* Main blue */
+  --primary-dark: #174A7A;
+  --secondary: #DCEEFF;      /* Soft blue */
+  --accent: #4FADE0;         /* Sky blue */
+  --background: #FFFFFF;     /* Main background */
+  --text: #17324D;           /* Deep blue text */
+
+  --muted: #64788C;
+  --line: #D9E5EF;
+  --surface: #FFFFFF;
+  --soft: #F1F7FC;
+  --success: #E4F3FF;
+  --danger: #D95C5C;
+
+  --shadow: 0 12px 30px rgba(37, 99, 166, .12);
+  --radius: 20px;
+  --max: 1240px;
+}
+
+/* =====================================================
+   2. GLOBAL / RESET
+   ===================================================== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background: var(--background);
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+/* =====================================================
+   3. HEADER + NAVIGATION
+   ===================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  min-height: 64px;
+  padding: 0 max(20px, calc((100vw - var(--max)) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255,248,231,.96);
+  backdrop-filter: blur(12px);
+}
+
+.brand {
+  font-weight: 900;
+  letter-spacing: -.03em;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.site-nav a {
+  position: relative;
+  padding: 22px 0;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  color: var(--primary);
+}
+
+.site-nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  height: 2px;
+  border-radius: 99px;
+  background: var(--primary);
+}
+
+.cart-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  margin-left: 3px;
+  border-radius: 99px;
+  background: var(--primary);
+  color: #fff;
+  font-size: .65rem;
+}
+
+/* Hidden on desktop, visible on mobile */
+.menu-toggle {
+  display: none;
+  border: 0;
+  background: transparent;
+  padding: 8px;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin: 4px;
+  background: var(--text);
+  transition: .25s;
+}
+
+/* =====================================================
+   4. BUTTONS
+   ===================================================== */
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  padding: 10px 18px;
+  background: var(--primary);
+  color: #fff;
+  font-size: .75rem;
+  font-weight: 800;
+  transition: transform .2s, background .2s, box-shadow .2s;
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(255,107,107,.25);
+}
+
+.btn.secondary {
+  background: var(--secondary);
+  border-color: var(--secondary);
+  color: var(--text);
+}
+
+.btn.secondary:hover {
+  background: #E8C878;
+  border-color: #E8C878;
+  color: var(--text);
+}
+
+.full-width {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* =====================================================
+   5. HERO
+   ===================================================== */
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr .8fr;
+  gap: 30px;
+  align-items: center;
+  min-height: 330px;
+  margin: 18px auto 0;
+  padding: 32px;
+  border-radius: var(--radius);
+  background: #FCEFD9;
+  overflow: hidden;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 3;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  color: var(--primary);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 6vw, 4.4rem);
+  line-height: .95;
+  letter-spacing: -.055em;
+}
+
+.hero-copy p:not(.eyebrow) {
+  max-width: 460px;
+  color: var(--muted);
+}
+
+.hero-art {
+  height: 220px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #FCEFE2;
+}
+
+.hero-toy {
+  width: 120px;
+  height: 120px;
+  display: grid;
+  place-items: center;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #F4D6A0, #FFFDFC);
+  font-weight: 900;
+  color: var(--primary);
+  box-shadow: var(--shadow);
+  animation: float 3s ease-in-out infinite;
+}
+
+.hero-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+}
+
+.hero-dots button {
+  width: 34px;
+  height: 18px;
+  border: 0;
+  border-radius: 99px;
+  background: #fff;
+  color: var(--text);
+  font-size: .55rem;
+  font-weight: 800;
+}
+
+.hero-dots button.active {
+  box-shadow: inset 0 0 0 2px var(--primary);
+}
+
+/* =====================================================
+   6. PRODUCT CARDS
+   ===================================================== */
+.section {
+  padding: 34px 0;
+}
+
+.compact-section {
+  padding-top: 18px;
+}
+
+.section-heading,
+.results-row {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 14px;
+}
+
+.section h2,
+.results-row h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  letter-spacing: -.02em;
+}
+
+.text-link {
+  font-size: .8rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.product-card {
+  min-width: 0;
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 3px 10px rgba(51,51,51,.03);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+.product-image {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 170px;
+  width: 100%;
+  border: 0;
+  border-radius: 9px;
+  background: var(--soft);
+  overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.product-info {
+  padding: 10px 2px 1px;
+}
+
+.product-name {
+  margin: 0;
+  font-size: .9rem;
+}
+
+.product-category {
+  margin: 1px 0 4px;
+  color: var(--muted);
+  font-size: .68rem;
+}
+
+.price {
+  margin: 0 0 9px;
+  font-weight: 900;
+  font-size: .86rem;
+}
+
+.card-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.card-actions .btn {
+  flex: 1;
+  padding: 8px 7px;
+  font-size: .67rem;
+}
+
+.icon-btn {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: var(--text);
+  font-weight: 800;
+}
+
+.icon-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* =====================================================
+   7. PRODUCTS PAGE CONTROLS
+   ===================================================== */
+.page-main {
+  width: min(var(--max), calc(100% - 32px));
+  margin: auto;
+}
+
+.page-intro {
+  padding: 44px 0 18px;
+}
+
+.page-intro h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  letter-spacing: -.045em;
+}
+
+.page-intro p:last-child {
+  margin: 5px 0 0;
+  color: var(--muted);
+}
+
+.catalog-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 250px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 0 12px;
+  background: var(--surface);
+}
+
+.search-box input {
+  width: 100%;
+  height: 40px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+}
+
+.filter-list {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 8px 15px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: .72rem;
+  font-weight: 800;
+  transition: .2s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.empty-state {
+  padding: 45px 20px;
+  text-align: center;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  color: var(--muted);
+}
+
+.empty-state h2 {
+  color: var(--text);
+  margin-top: 0;
+}
+
+/* =====================================================
+   8. CART
+   ===================================================== */
+.cart-layout,
+.checkout-layout,
+.support-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(280px, .75fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.cart-list {
+  display: grid;
+  gap: 10px;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 80px 1fr auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.cart-item-image {
+  width: 80px;
+  height: 70px;
+  border-radius: 8px;
+  background: var(--soft);
+  display: grid;
+  place-items: center;
+  font-size: .65rem;
+  font-weight: 900;
+}
+
+.cart-item h3 {
+  margin: 0;
+  font-size: .9rem;
+}
+
+.cart-item p {
+  margin: 2px 0;
+  color: var(--muted);
+  font-size: .72rem;
+}
+
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 3px 8px;
+}
+
+.qty-control button {
+  width: 23px;
+  height: 23px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--soft);
+  color: var(--text);
+  font-weight: 900;
+}
+
+.remove-btn {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: .7rem;
+}
+
+.remove-btn:hover {
+  color: var(--danger);
+}
+
+.summary-card,
+.form-card,
+.faq-card {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.summary-card h2,
+.form-card h2,
+.faq-card h2 {
+  margin: 0 0 16px;
+  font-size: 1.05rem;
+}
+
+.summary-line,
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 7px 0;
+  font-size: .82rem;
+}
+
+.summary-total {
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.summary-card hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 10px 0;
+}
+
+/* =====================================================
+   9. CHECKOUT / FORMS
+   ===================================================== */
+.field {
+  margin-bottom: 13px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: .72rem;
+  font-weight: 800;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 11px;
+  outline: 0;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(255,107,107,.12);
+}
+
+.error-text {
+  display: block;
+  min-height: 16px;
+  color: var(--danger);
+  font-size: .68rem;
+}
+
+.checkout-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 0;
+  font-size: .76rem;
+}
+
+.success-message {
+  margin-top: 12px;
+  padding: 12px;
+  border-left: 4px solid var(--accent);
+  border-radius: 9px;
+  background: var(--success);
+  color: #6E9B82;
+  font-size: .75rem;
+  font-weight: 800;
+  animation: pop .45s ease;
+}
+
+/* =====================================================
+   10. WISHLIST
+   ===================================================== */
+.status-filters {
+  margin-bottom: 15px;
+}
+
+.storage-note {
+  color: var(--muted);
+  font-size: .68rem;
+  margin-top: 18px;
+}
+
+/* =====================================================
+   11. SUPPORT / FAQ
+   ===================================================== */
+.support-layout {
+  grid-template-columns: 1fr 1fr;
+}
+
+.faq-list {
+  display: grid;
+  gap: 7px;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+  font-size: .74rem;
+  font-weight: 800;
+}
+
+.faq-question span {
+  font-size: 1rem;
+  transition: .2s;
+}
+
+.faq-question[aria-expanded="true"] span {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .25s;
+}
+
+.faq-answer p {
+  overflow: hidden;
+  margin: 0;
+  padding: 0 12px;
+  color: var(--muted);
+  font-size: .72rem;
+}
+
+.faq-answer.open {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer.open p {
+  padding-top: 6px;
+  padding-bottom: 8px;
+}
+
+/* =====================================================
+   12. FOOTER
+   ===================================================== */
+.site-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  gap: 35px;
+  margin-top: 45px;
+  padding: 36px max(20px, calc((100vw - var(--max)) / 2));
+  background: #FCEFE2;
+  border-top: 1px solid var(--line);
+}
+
+.site-footer h3 {
+  margin: 0 0 8px;
+  font-size: .82rem;
+}
+
+.site-footer p,
+.site-footer a {
+  margin: 4px 0;
+  color: var(--muted);
+  font-size: .72rem;
+}
+
+.site-footer a {
+  display: block;
+}
+
+.inline-form {
+  display: flex;
+  gap: 7px;
+}
+
+.inline-form input {
+  min-width: 0;
+  flex: 1;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--surface);
+}
+
+.form-message {
+  display: block;
+  margin-top: 7px;
+  color: #6E9B82;
+}
+
+/* =====================================================
+   13. MODAL
+   ===================================================== */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(51,51,51,.5);
+}
+
+.modal-card {
+  position: relative;
+  width: min(680px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  padding: 18px;
+  border-radius: 15px;
+  background: var(--surface);
+  box-shadow: 0 30px 80px rgba(51,51,51,.2);
+  animation: pop .25s ease;
+}
+
+.modal-close {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  border: 0;
+  background: var(--soft);
+  color: var(--text);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.2rem;
+}
+
+.modal-product {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.modal-product .product-image {
+  height: 280px;
+}
+
+.wishlist-select {
+  margin: 12px 0;
+}
+
+.wishlist-select label {
+  display: block;
+  font-size: .72rem;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.wishlist-select select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+/* =====================================================
+   14. ANIMATIONS
+   ===================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .6s, transform .6s;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =====================================================
+   15. HOME PAGE
+   ===================================================== */
+.home-main {
+  width: min(var(--max), calc(100% - 32px));
+  margin: auto;
+}
+
+.hero-full {
+  min-height: 430px;
+  grid-template-columns: .9fr 1.1fr;
+}
+
+.hero-toy-wall {
+  position: relative;
+  height: 350px;
+  min-width: 0;
+}
+
+.hero-product {
+  position: absolute;
+  width: 145px;
+  height: 145px;
+  padding: 8px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 15px 35px rgba(51,51,51,.13);
+  overflow: hidden;
+  transition: transform .25s ease;
+}
+
+.hero-product img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hero-product:hover {
+  transform: translateY(-8px) rotate(1deg) scale(1.03);
+}
+
+.hero-p1 {
+  top: 15px;
+  left: 8%;
+  transform: rotate(-7deg);
+}
+
+.hero-p2 {
+  top: 105px;
+  right: 3%;
+  transform: rotate(7deg);
+}
+
+.hero-p3 {
+  bottom: 5px;
+  left: 22%;
+  transform: rotate(4deg);
+}
+
+.hero-p4 {
+  top: 15px;
+  right: 28%;
+  transform: rotate(-3deg);
+}
+
+.hero-p5 {
+  bottom: 18px;
+  right: 22%;
+  transform: rotate(-7deg);
+}
+
+.home-section {
+  padding: 38px 0 10px;
+}
+
+.category-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.category-card {
+  position: relative;
+  min-height: 180px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--soft);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+}
+
+.category-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: .9;
+  transition: transform .3s ease;
+}
+
+.category-card:hover img {
+  transform: scale(1.06);
+}
+
+.category-card span {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(transparent, rgba(51,51,51,.75));
+  color: #fff;
+  font-size: .9rem;
+  font-weight: 900;
+}
+
+.home-product-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.promo-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  margin: 42px 0;
+  padding: 30px;
+  border-radius: var(--radius);
+  background: #FCEFD9;
+}
+
+.promo-strip h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  letter-spacing: -.035em;
+}
+
+.promo-strip p:last-child {
+  max-width: 650px;
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+/* =====================================================
+   16. RESPONSIVE TABLET / SMALL LAPTOP
+   ===================================================== */
+@media (max-width: 850px) {
+
+  .site-header {
+    padding: 0 18px;
+  }
+
+  /* Show hamburger */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Hide desktop nav until hamburger opens it */
+  .site-nav {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    display: grid;
+    gap: 0;
+    padding: 8px 18px;
+    background: var(--background);
+    border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    transform: translateY(-150%);
+    transition: .25s;
+    pointer-events: none;
+  }
+
+  .site-nav.open {
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .site-nav a {
+    padding: 12px 0;
+  }
+
+  .site-nav a.active::after {
+    display: none;
+  }
+
+  .hero-full {
+    grid-template-columns: 1fr;
+    min-height: 650px;
+  }
+
+  .hero-toy-wall {
+    height: 300px;
+  }
+
+  .catalog-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .search-box {
+    min-width: 0;
+  }
+
+  .product-grid,
+  .home-product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cart-layout,
+  .checkout-layout,
+  .support-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .site-footer {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .newsletter {
+    grid-column: 1 / -1;
+  }
+
+  .promo-strip {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+/* =====================================================
+   17. RESPONSIVE MOBILE
+   ===================================================== */
+@media (max-width: 520px) {
+
+  .page-main,
+  .home-main {
+    width: min(100% - 22px, var(--max));
+  }
+
+  .hero-full {
+    min-height: 600px;
+    padding: 24px 18px;
+  }
+
+  .hero-toy-wall {
+    height: 270px;
+  }
+
+  .hero-product {
+    width: 105px;
+    height: 105px;
+  }
+
+  .hero-p1 {
+    left: 0;
+  }
+
+  .hero-p2 {
+    right: 0;
+  }
+
+  .hero-p3 {
+    left: 13%;
+    bottom: 0;
+  }
+
+  .hero-p4 {
+    right: 22%;
+    top: 5px;
+  }
+
+  .hero-p5 {
+    right: 5%;
+    bottom: 12px;
+  }
+
+  .product-grid,
+  .home-product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .product-image {
+    height: 135px;
+  }
+
+  .card-actions {
+    flex-direction: column;
+  }
+
+  .cart-item {
+    grid-template-columns: 62px 1fr;
+  }
+
+  .cart-item-image {
+    width: 62px;
+    height: 62px;
+  }
+
+  .cart-item .qty-control,
+  .cart-item .remove-btn {
+    grid-column: 2;
+  }
+
+  .modal-product {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-product .product-image {
+    height: 210px;
+  }
+
+  .category-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .category-card {
+    min-height: 125px;
+  }
+
+  .promo-strip {
+    padding: 22px;
+  }
+
+  .site-footer {
+    grid-template-columns: 1fr;
+  }
+
+  .inline-form {
+    flex-direction: column;
+  }
+}
+
+/* Accessibility: users who prefer reduced motion get fewer animations. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+
+/* =========================================================
+   TOY HAVEN - PINK + BLUE VISUAL REDESIGN
+   =========================================================
+   DESIGN IDEA:
+   - Pink (#F45B69) is now the MAIN PAGE BACKGROUND.
+   - Navy (#243B6B) is used for navigation, headings and
+     strong text so the pink background stays readable.
+   - Sky Blue (#5BC0EB) is the main hero/section colour.
+   - Bright Yellow (#FDE74C) is reserved for CTAs and
+     playful highlights.
+   - White / very pale blue surfaces keep the content clean.
+
+   This is intentionally a new layout treatment rather than
+   only changing a few colour values.
+   ========================================================= */
+
+/* ---------- GLOBAL PINK CANVAS ---------- */
+body {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255,255,255,.18) 0 70px, transparent 71px),
+    radial-gradient(circle at 92% 36%, rgba(255,255,255,.13) 0 90px, transparent 91px),
+    #F45B69;
+  color: #243B6B;
+}
+
+::selection {
+  background: #FDE74C;
+  color: #243B6B;
+}
+
+/* ---------- NAVIGATION ---------- */
+.site-header {
+  min-height: 72px;
+  background: #243B6B;
+  border: 0;
+  box-shadow: 0 8px 24px rgba(36,59,107,.22);
+}
+
+.brand {
+  color: #FFFFFF;
+  font-size: 1.05rem;
+  letter-spacing: .02em;
+}
+
+.site-nav a {
+  color: #FFFFFF;
+  padding: 26px 0;
+  opacity: .92;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  color: #FDE74C;
+}
+
+.site-nav a.active::after {
+  background: #FDE74C;
+  height: 3px;
+}
+
+.cart-count {
+  background: #F45B69;
+  color: #FFFFFF;
+}
+
+.menu-toggle span {
+  background: #FFFFFF;
+}
+
+/* ---------- BUTTON SYSTEM ---------- */
+.btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 20px;
+  background: #FDE74C;
+  color: #243B6B;
+  box-shadow: 0 7px 0 rgba(36,59,107,.14);
+}
+
+.btn:hover {
+  background: #FFFFFF;
+  color: #243B6B;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 0 rgba(36,59,107,.12);
+}
+
+.btn.secondary {
+  background: #5BC0EB;
+  border-color: #5BC0EB;
+  color: #243B6B;
+}
+
+.btn.secondary:hover {
+  background: #FFFFFF;
+  border-color: #FFFFFF;
+}
+
+.icon-btn {
+  border-color: rgba(36,59,107,.18);
+  background: #FFFFFF;
+  color: #243B6B;
+}
+
+.icon-btn:hover {
+  border-color: #5BC0EB;
+  color: #243B6B;
+  background: #DDF4FD;
+}
+
+/* ---------- HERO: SKY BLUE FEATURE PANEL ---------- */
+.hero {
+  min-height: 370px;
+  margin-top: 24px;
+  padding: 42px;
+  border: 4px solid #243B6B;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 88% 18%, rgba(253,231,76,.95) 0 52px, transparent 53px),
+    linear-gradient(135deg, #5BC0EB 0%, #8ED9F4 100%);
+  box-shadow: 0 20px 0 rgba(36,59,107,.14);
+}
+
+.hero-full {
+  min-height: 470px;
+}
+
+.eyebrow {
+  color: #243B6B;
+  font-weight: 900;
+}
+
+.hero h1 {
+  color: #243B6B;
+  max-width: 560px;
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  text-transform: uppercase;
+}
+
+.hero-copy p:not(.eyebrow) {
+  color: #243B6B;
+  font-weight: 600;
+}
+
+.hero-product {
+  border: 4px solid #FFFFFF;
+  border-radius: 24px;
+  background: #FFFFFF;
+  box-shadow: 0 14px 0 rgba(36,59,107,.15);
+}
+
+.hero-product:hover {
+  box-shadow: 0 18px 0 rgba(36,59,107,.13);
+}
+
+.hero-dots button {
+  background: #FFFFFF;
+  color: #243B6B;
+}
+
+.hero-dots button.active {
+  background: #FDE74C;
+  box-shadow: inset 0 0 0 2px #243B6B;
+}
+
+/* ---------- CONTENT SECTIONS SIT ON THE PINK CANVAS ---------- */
+.home-section {
+  margin-top: 28px;
+  padding: 28px;
+  border: 2px solid rgba(36,59,107,.12);
+  border-radius: 28px;
+  background: #F7F9FC;
+  box-shadow: 0 12px 0 rgba(36,59,107,.10);
+}
+
+.home-section .section-heading {
+  margin-bottom: 20px;
+}
+
+.section h2,
+.results-row h2,
+.page-intro h1 {
+  color: #243B6B;
+}
+
+/* ---------- CATEGORY CARDS: FOUR DISTINCT PALETTE BLOCKS ---------- */
+.category-cards {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.category-card {
+  min-height: 180px;
+  border: 3px solid #243B6B;
+  border-radius: 22px;
+  background: #5BC0EB;
+  box-shadow: 0 8px 0 rgba(36,59,107,.13);
+}
+
+.category-card:nth-child(1) {
+  background: #5BC0EB;
+}
+
+.category-card:nth-child(2) {
+  background: #FDE74C;
+}
+
+.category-card:nth-child(3) {
+  background: #FFFFFF;
+}
+
+.category-card:nth-child(4) {
+  background: #F45B69;
+}
+
+.category-card img {
+  opacity: .94;
+  mix-blend-mode: multiply;
+}
+
+.category-card span {
+  padding: 15px;
+  background: #243B6B;
+  color: #FFFFFF;
+  font-size: .82rem;
+  letter-spacing: .02em;
+}
+
+/* ---------- PRODUCT CARDS ---------- */
+.product-grid {
+  gap: 18px;
+}
+
+.product-card {
+  padding: 11px;
+  border: 2px solid rgba(36,59,107,.14);
+  border-radius: 20px;
+  background: #FFFFFF;
+  box-shadow: 0 7px 0 rgba(36,59,107,.09);
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 13px 0 rgba(36,59,107,.11);
+}
+
+.product-image {
+  height: 185px;
+  border-radius: 15px;
+  background: #DDF4FD;
+}
+
+.product-name,
+.price {
+  color: #243B6B;
+}
+
+.product-category,
+.muted {
+  color: #52658C;
+}
+
+.text-link {
+  color: #243B6B;
+  text-decoration: underline;
+  text-decoration-color: #F45B69;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+}
+
+/* ---------- PROMO STRIP ---------- */
+.promo-strip {
+  border: 3px solid #243B6B;
+  background: #FDE74C;
+  color: #243B6B;
+  border-radius: 28px;
+  box-shadow: 0 10px 0 rgba(36,59,107,.12);
+}
+
+.promo-strip p:last-child {
+  color: #243B6B;
+}
+
+/* ---------- PRODUCTS PAGE ---------- */
+.page-intro {
+  margin-top: 26px;
+  padding: 32px;
+  border: 3px solid #243B6B;
+  border-radius: 28px;
+  background: #5BC0EB;
+  box-shadow: 0 10px 0 rgba(36,59,107,.12);
+}
+
+.page-intro p:last-child {
+  color: #243B6B;
+  font-weight: 600;
+}
+
+.catalog-controls {
+  margin-top: 20px;
+  padding: 14px;
+  border: 2px solid rgba(36,59,107,.12);
+  border-radius: 18px;
+  background: #F7F9FC;
+}
+
+.search-box,
+.filter-btn {
+  background: #FFFFFF;
+  border-color: rgba(36,59,107,.16);
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: #243B6B;
+  border-color: #243B6B;
+  color: #FFFFFF;
+}
+
+/* ---------- CART / CHECKOUT / SUPPORT SURFACES ---------- */
+.cart-item,
+.summary-card,
+.form-card,
+.faq-card,
+.faq-question,
+.modal-card {
+  border: 2px solid rgba(36,59,107,.13);
+  background: #FFFFFF;
+  box-shadow: 0 7px 0 rgba(36,59,107,.08);
+}
+
+.qty-control {
+  border-color: rgba(36,59,107,.18);
+  background: #DDF4FD;
+}
+
+.qty-control button {
+  background: #5BC0EB;
+  color: #243B6B;
+}
+
+.field input,
+.field select,
+.field textarea,
+.inline-form input,
+.wishlist-select select {
+  background: #F7F9FC;
+  border: 2px solid rgba(36,59,107,.14);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #5BC0EB;
+  box-shadow: 0 0 0 4px rgba(91,192,235,.20);
+}
+
+/* ---------- SUPPORT ---------- */
+.faq-question {
+  color: #243B6B;
+}
+
+.success-message {
+  border-left-color: #5BC0EB;
+  background: #DDF4FD;
+  color: #243B6B;
+}
+
+/* ---------- FOOTER ---------- */
+.site-footer {
+  margin-top: 50px;
+  background: #243B6B;
+  border: 0;
+  color: #FFFFFF;
+}
+
+.site-footer h3 {
+  color: #FDE74C;
+}
+
+.site-footer p,
+.site-footer a {
+  color: #FFFFFF;
+  opacity: .9;
+}
+
+.site-footer a:hover {
+  color: #5BC0EB;
+  opacity: 1;
+}
+
+.inline-form input {
+  background: #FFFFFF;
+}
+
+.form-message {
+  color: #FDE74C;
+}
+
+/* ---------- MODAL ---------- */
+.modal-backdrop {
+  background: rgba(36,59,107,.72);
+}
+
+.modal-close {
+  background: #F45B69;
+  color: #FFFFFF;
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 760px) {
+  body {
+    background: #F45B69;
+  }
+
+  .site-header {
+    min-height: 64px;
+  }
+
+  .hero {
+    margin-top: 14px;
+    padding: 26px;
+    border-radius: 24px;
+  }
+
+  .home-section {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .page-intro {
+    padding: 24px;
+    border-radius: 22px;
+  }
+
+  .category-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .category-card {
+    min-height: 145px;
+  }
+}
+
+
+/* =========================================================
+   TOY HAVEN - ORANGE + CORAL VISUAL REDESIGN
+   =========================================================
+   Exact requested palette:
+   Orange  #FF9F43
+   Coral   #FF6B6B
+   Cream   #FFF3CD
+   Brown   #8B5E3C
+   White   #FFF9F2
+
+   Design idea:
+   - Coral is the main page canvas.
+   - Brown anchors navigation, headings and text.
+   - Orange is the main action/highlight colour.
+   - Cream creates warm content panels.
+   - #FFF9F2 keeps cards and reading areas comfortable.
+   ========================================================= */
+
+body {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255,243,205,.30) 0 72px, transparent 73px),
+    radial-gradient(circle at 92% 40%, rgba(255,159,67,.20) 0 90px, transparent 91px),
+    #FF6B6B;
+  color: #8B5E3C;
+}
+
+::selection {
+  background: #FFF3CD;
+  color: #8B5E3C;
+}
+
+/* NAVIGATION */
+.site-header {
+  min-height: 72px;
+  background: #8B5E3C;
+  border: 0;
+  box-shadow: 0 8px 24px rgba(139,94,60,.24);
+}
+
+.brand {
+  color: #FFF9F2;
+  font-size: 1.05rem;
+  letter-spacing: .02em;
+}
+
+.site-nav a {
+  color: #FFF9F2;
+  padding: 26px 0;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  color: #FFF3CD;
+}
+
+.site-nav a.active::after {
+  background: #FF9F43;
+  height: 3px;
+}
+
+.cart-count {
+  background: #FF6B6B;
+  color: #FFF9F2;
+}
+
+.menu-toggle span {
+  background: #FFF9F2;
+}
+
+/* BUTTONS */
+.btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 20px;
+  background: #FF9F43;
+  color: #8B5E3C;
+  box-shadow: 0 7px 0 rgba(139,94,60,.14);
+}
+
+.btn:hover {
+  background: #FFF3CD;
+  color: #8B5E3C;
+  transform: translateY(-3px);
+}
+
+.btn.secondary {
+  background: #FF6B6B;
+  border-color: #FF6B6B;
+  color: #FFF9F2;
+}
+
+.btn.secondary:hover {
+  background: #8B5E3C;
+  border-color: #8B5E3C;
+}
+
+.icon-btn {
+  border-color: rgba(139,94,60,.18);
+  background: #FFF9F2;
+  color: #8B5E3C;
+}
+
+.icon-btn:hover {
+  background: #FFF3CD;
+  border-color: #FF9F43;
+}
+
+/* HERO */
+.hero {
+  min-height: 370px;
+  margin-top: 24px;
+  padding: 42px;
+  border: 4px solid #8B5E3C;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 88% 18%, rgba(255,243,205,.95) 0 54px, transparent 55px),
+    linear-gradient(135deg, #FF9F43 0%, #FFB86B 100%);
+  box-shadow: 0 20px 0 rgba(139,94,60,.14);
+}
+
+.hero-full {
+  min-height: 470px;
+}
+
+.eyebrow {
+  color: #8B5E3C;
+  font-weight: 900;
+}
+
+.hero h1 {
+  color: #8B5E3C;
+  max-width: 560px;
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  text-transform: uppercase;
+}
+
+.hero-copy p:not(.eyebrow) {
+  color: #8B5E3C;
+  font-weight: 600;
+}
+
+.hero-product {
+  border: 4px solid #FFF9F2;
+  border-radius: 24px;
+  background: #FFF9F2;
+  box-shadow: 0 14px 0 rgba(139,94,60,.15);
+}
+
+.hero-dots button {
+  background: #FFF9F2;
+  color: #8B5E3C;
+}
+
+.hero-dots button.active {
+  background: #FF6B6B;
+  box-shadow: inset 0 0 0 2px #8B5E3C;
+}
+
+/* CONTENT PANELS */
+.home-section {
+  margin-top: 28px;
+  padding: 28px;
+  border: 2px solid rgba(139,94,60,.13);
+  border-radius: 28px;
+  background: #FFF9F2;
+  box-shadow: 0 12px 0 rgba(139,94,60,.10);
+}
+
+.section h2,
+.results-row h2,
+.page-intro h1 {
+  color: #8B5E3C;
+}
+
+/* CATEGORY CARDS */
+.category-cards {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.category-card {
+  min-height: 180px;
+  border: 3px solid #8B5E3C;
+  border-radius: 22px;
+  background: #FF9F43;
+  box-shadow: 0 8px 0 rgba(139,94,60,.13);
+}
+
+.category-card:nth-child(1) { background: #FF9F43; }
+.category-card:nth-child(2) { background: #FFF3CD; }
+.category-card:nth-child(3) { background: #FFF9F2; }
+.category-card:nth-child(4) { background: #FF6B6B; }
+
+.category-card span {
+  padding: 15px;
+  background: #8B5E3C;
+  color: #FFF9F2;
+  font-size: .82rem;
+}
+
+/* PRODUCT CARDS */
+.product-card {
+  padding: 11px;
+  border: 2px solid rgba(139,94,60,.14);
+  border-radius: 20px;
+  background: #FFF9F2;
+  box-shadow: 0 7px 0 rgba(139,94,60,.09);
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 13px 0 rgba(139,94,60,.11);
+}
+
+.product-image {
+  height: 185px;
+  border-radius: 15px;
+  background: #FFF3CD;
+}
+
+.product-name,
+.price {
+  color: #8B5E3C;
+}
+
+.product-category,
+.muted {
+  color: #795E4A;
+}
+
+.text-link {
+  color: #8B5E3C;
+  text-decoration-color: #FF6B6B;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+}
+
+/* PROMO STRIP */
+.promo-strip {
+  border: 3px solid #8B5E3C;
+  background: #FFF3CD;
+  color: #8B5E3C;
+  border-radius: 28px;
+  box-shadow: 0 10px 0 rgba(139,94,60,.12);
+}
+
+/* PRODUCTS PAGE */
+.page-intro {
+  margin-top: 26px;
+  padding: 32px;
+  border: 3px solid #8B5E3C;
+  border-radius: 28px;
+  background: #FF9F43;
+  box-shadow: 0 10px 0 rgba(139,94,60,.12);
+}
+
+.page-intro p:last-child {
+  color: #8B5E3C;
+  font-weight: 600;
+}
+
+.catalog-controls {
+  margin-top: 20px;
+  padding: 14px;
+  border: 2px solid rgba(139,94,60,.12);
+  border-radius: 18px;
+  background: #FFF9F2;
+}
+
+.search-box,
+.filter-btn {
+  background: #FFF9F2;
+  border-color: rgba(139,94,60,.16);
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: #8B5E3C;
+  border-color: #8B5E3C;
+  color: #FFF9F2;
+}
+
+/* CART / CHECKOUT / SUPPORT */
+.cart-item,
+.summary-card,
+.form-card,
+.faq-card,
+.faq-question,
+.modal-card {
+  border: 2px solid rgba(139,94,60,.13);
+  background: #FFF9F2;
+  box-shadow: 0 7px 0 rgba(139,94,60,.08);
+}
+
+.qty-control {
+  border-color: rgba(139,94,60,.18);
+  background: #FFF3CD;
+}
+
+.qty-control button {
+  background: #FF9F43;
+  color: #8B5E3C;
+}
+
+.field input,
+.field select,
+.field textarea,
+.inline-form input,
+.wishlist-select select {
+  background: #FFF9F2;
+  border: 2px solid rgba(139,94,60,.14);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #FF9F43;
+  box-shadow: 0 0 0 4px rgba(255,159,67,.20);
+}
+
+/* SUPPORT */
+.faq-question {
+  color: #8B5E3C;
+}
+
+.success-message {
+  border-left-color: #FF9F43;
+  background: #FFF3CD;
+  color: #8B5E3C;
+}
+
+/* FOOTER */
+.site-footer {
+  margin-top: 50px;
+  background: #8B5E3C;
+  border: 0;
+  color: #FFF9F2;
+}
+
+.site-footer h3 {
+  color: #FFF3CD;
+}
+
+.site-footer p,
+.site-footer a {
+  color: #FFF9F2;
+}
+
+.site-footer a:hover {
+  color: #FF9F43;
+}
+
+.inline-form input {
+  background: #FFF9F2;
+}
+
+.form-message {
+  color: #FFF3CD;
+}
+
+/* MODAL */
+.modal-backdrop {
+  background: rgba(139,94,60,.72);
+}
+
+.modal-close {
+  background: #FF6B6B;
+  color: #FFF9F2;
+}
+
+/* MOBILE */
+@media (max-width: 760px) {
+  body {
+    background: #FF6B6B;
+  }
+
+  .hero {
+    margin-top: 14px;
+    padding: 26px;
+    border-radius: 24px;
+  }
+
+  .home-section {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .page-intro {
+    padding: 24px;
+    border-radius: 22px;
+  }
+
+  .category-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .category-card {
+    min-height: 145px;
+  }
+}
+
+
+/* =========================================================
+   TOY HAVEN - WHITE + BLUE VISUAL REDESIGN
+   =========================================================
+   Design:
+   - White is the main page background.
+   - Blue is used for navigation, headings, buttons and
+     important interface elements.
+   - Light blue creates soft sections without making the
+     website look heavy.
+   - The design uses generous white space for a clean,
+     modern toy-store appearance.
+   ========================================================= */
+
+body {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(79,173,224,.08) 0 100px, transparent 101px),
+    #FFFFFF;
+  color: #17324D;
+}
+
+::selection {
+  background: #DCEEFF;
+  color: #17324D;
+}
+
+/* NAVIGATION */
+.site-header {
+  min-height: 72px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #D9E5EF;
+  box-shadow: 0 4px 18px rgba(37,99,166,.08);
+}
+
+.brand {
+  color: #2563A6;
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: .02em;
+}
+
+.site-nav a {
+  color: #17324D;
+  padding: 26px 0;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  color: #2563A6;
+}
+
+.site-nav a.active::after {
+  background: #2563A6;
+  height: 3px;
+}
+
+.cart-count {
+  background: #2563A6;
+  color: #FFFFFF;
+}
+
+.menu-toggle span {
+  background: #2563A6;
+}
+
+/* BUTTONS */
+.btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 21px;
+  background: #2563A6;
+  color: #FFFFFF;
+  box-shadow: 0 6px 14px rgba(37,99,166,.20);
+}
+
+.btn:hover {
+  background: #174A7A;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+.btn.secondary {
+  background: #4FADE0;
+  border-color: #4FADE0;
+  color: #17324D;
+}
+
+.btn.secondary:hover {
+  background: #DCEEFF;
+  border-color: #DCEEFF;
+}
+
+.icon-btn {
+  border-color: #D9E5EF;
+  background: #FFFFFF;
+  color: #2563A6;
+}
+
+.icon-btn:hover {
+  background: #F1F7FC;
+  border-color: #4FADE0;
+}
+
+/* HERO */
+.hero {
+  min-height: 390px;
+  margin-top: 24px;
+  padding: 44px;
+  border: 1px solid #D9E5EF;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 90% 20%, rgba(255,255,255,.72) 0 58px, transparent 59px),
+    linear-gradient(135deg, #DCEEFF 0%, #A9DDF6 100%);
+  box-shadow: 0 16px 35px rgba(37,99,166,.12);
+}
+
+.hero-full {
+  min-height: 470px;
+}
+
+.eyebrow {
+  color: #2563A6;
+  font-weight: 900;
+}
+
+.hero h1 {
+  color: #17324D;
+  max-width: 580px;
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  text-transform: uppercase;
+}
+
+.hero-copy p:not(.eyebrow) {
+  color: #31526E;
+  font-weight: 600;
+}
+
+.hero-product {
+  border: 4px solid #FFFFFF;
+  border-radius: 22px;
+  background: #FFFFFF;
+  box-shadow: 0 12px 28px rgba(37,99,166,.16);
+}
+
+.hero-dots button {
+  background: #FFFFFF;
+  color: #2563A6;
+  border: 1px solid #D9E5EF;
+}
+
+.hero-dots button.active {
+  background: #2563A6;
+  color: #FFFFFF;
+  box-shadow: none;
+}
+
+/* CONTENT */
+.home-section {
+  margin-top: 28px;
+  padding: 28px;
+  border: 1px solid #D9E5EF;
+  border-radius: 24px;
+  background: #FFFFFF;
+  box-shadow: 0 10px 28px rgba(37,99,166,.08);
+}
+
+.section h2,
+.results-row h2,
+.page-intro h1 {
+  color: #17324D;
+}
+
+/* CATEGORY CARDS */
+.category-cards {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.category-card {
+  min-height: 180px;
+  border: 1px solid #D9E5EF;
+  border-radius: 20px;
+  background: #DCEEFF;
+  box-shadow: 0 8px 20px rgba(37,99,166,.10);
+}
+
+.category-card:nth-child(1) { background: #DCEEFF; }
+.category-card:nth-child(2) { background: #FFFFFF; }
+.category-card:nth-child(3) { background: #EAF6FD; }
+.category-card:nth-child(4) { background: #C7E8F8; }
+
+.category-card span {
+  padding: 15px;
+  background: #2563A6;
+  color: #FFFFFF;
+  font-size: .82rem;
+}
+
+/* PRODUCT CARDS */
+.product-card {
+  padding: 11px;
+  border: 1px solid #D9E5EF;
+  border-radius: 18px;
+  background: #FFFFFF;
+  box-shadow: 0 7px 20px rgba(37,99,166,.08);
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 13px 28px rgba(37,99,166,.13);
+}
+
+.product-image {
+  height: 185px;
+  border-radius: 14px;
+  background: #F1F7FC;
+}
+
+.product-name,
+.price {
+  color: #17324D;
+}
+
+.product-category,
+.muted {
+  color: #64788C;
+}
+
+.text-link {
+  color: #2563A6;
+  text-decoration-color: #4FADE0;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* PROMO */
+.promo-strip {
+  border: 1px solid #BFD8EA;
+  background: #DCEEFF;
+  color: #17324D;
+  border-radius: 24px;
+  box-shadow: 0 8px 20px rgba(37,99,166,.08);
+}
+
+/* PRODUCTS PAGE */
+.page-intro {
+  margin-top: 26px;
+  padding: 34px;
+  border: 1px solid #BFD8EA;
+  border-radius: 26px;
+  background: linear-gradient(135deg, #DCEEFF, #F1F7FC);
+  box-shadow: 0 10px 24px rgba(37,99,166,.09);
+}
+
+.page-intro p:last-child {
+  color: #31526E;
+  font-weight: 600;
+}
+
+.catalog-controls {
+  margin-top: 20px;
+  padding: 14px;
+  border: 1px solid #D9E5EF;
+  border-radius: 16px;
+  background: #FFFFFF;
+}
+
+.search-box,
+.filter-btn {
+  background: #FFFFFF;
+  border-color: #D9E5EF;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: #2563A6;
+  border-color: #2563A6;
+  color: #FFFFFF;
+}
+
+/* CART / CHECKOUT / SUPPORT */
+.cart-item,
+.summary-card,
+.form-card,
+.faq-card,
+.faq-question,
+.modal-card {
+  border: 1px solid #D9E5EF;
+  background: #FFFFFF;
+  box-shadow: 0 7px 20px rgba(37,99,166,.07);
+}
+
+.qty-control {
+  border-color: #D9E5EF;
+  background: #F1F7FC;
+}
+
+.qty-control button {
+  background: #4FADE0;
+  color: #17324D;
+}
+
+.field input,
+.field select,
+.field textarea,
+.inline-form input,
+.wishlist-select select {
+  background: #FFFFFF;
+  border: 1px solid #D9E5EF;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #4FADE0;
+  box-shadow: 0 0 0 4px rgba(79,173,224,.15);
+}
+
+/* SUPPORT */
+.faq-question {
+  color: #17324D;
+}
+
+.success-message {
+  border-left-color: #2563A6;
+  background: #E4F3FF;
+  color: #17324D;
+}
+
+/* FOOTER */
+.site-footer {
+  margin-top: 50px;
+  background: #17324D;
+  border: 0;
+  color: #FFFFFF;
+}
+
+.site-footer h3 {
+  color: #4FADE0;
+}
+
+.site-footer p,
+.site-footer a {
+  color: #FFFFFF;
+}
+
+.site-footer a:hover {
+  color: #DCEEFF;
+}
+
+.inline-form input {
+  background: #FFFFFF;
+}
+
+.form-message {
+  color: #4FADE0;
+}
+
+/* MODAL */
+.modal-backdrop {
+  background: rgba(23,50,77,.70);
+}
+
+.modal-close {
+  background: #2563A6;
+  color: #FFFFFF;
+}
+
+/* MOBILE */
+@media (max-width: 760px) {
+  body {
+    background: #FFFFFF;
+  }
+
+  .hero {
+    margin-top: 14px;
+    padding: 26px;
+    border-radius: 22px;
+  }
+
+  .home-section {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .page-intro {
+    padding: 24px;
+    border-radius: 22px;
+  }
+
+  .category-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .category-card {
+    min-height: 145px;
+  }
+}
+/* ---------- CENTER PRODUCT IMAGES ---------- */
+
+.product-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.product-image img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain !important;
+  object-position: center center;
+  display: block;
+  margin: auto;
+}
+
+/* ---------- SAVED WISHLIST HEART ----------*/
+.icon-btn.saved {
+  background: #155EEF;
+  color: white;
+  border-color: #155EEF;
+}
+
+/* --------- MOBILE SECTION HEADING FIX -------- */
+@media (max-width: 520px) {
+
+  .section-heading {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .section-heading .text-link {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 0.72rem;
+  }
+
+}
+
+
+/* ---------- MOBILE MODAL CLOSE BUTTON FIX ---------- */
+
+@media (max-width: 520px) {
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 100;
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #2563A6;
+    color: #FFFFFF;
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+}
+
+
+/* ---------- MOBILE HAMBURGER MENU FIX ---------- */
+
+@media (max-width: 520px) {
+
+  .site-nav {
+    padding: 8px 20px;
+    gap: 0;
+  }
+
+  .site-nav a {
+    padding: 10px 0;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+}

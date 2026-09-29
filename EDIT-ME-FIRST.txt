@@ -1,0 +1,30 @@
+TOY HAVEN - QUICK EDIT GUIDE
+
+PRODUCTS:
+Open js/products-data.js
+
+COLOURS:
+Open css/style.css -> top -> COLOUR PALETTE
+
+HOME PAGE TEXT / SECTIONS:
+Open index.html
+
+OTHER PAGE CONTENT:
+products.html
+cart.html
+checkout.html
+wishlist.html
+support.html
+
+FUNCTIONALITY:
+Open js/app.js
+
+IMAGES:
+Put new images in assets/
+
+For a viva:
+Explain HTML = structure
+CSS = design/responsiveness
+JavaScript = interaction
+localStorage = browser persistence
+products-data.js = product information
